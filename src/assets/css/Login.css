@@ -1,0 +1,97 @@
+.login {
+    height: 100vh;
+}
+
+.login > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+
+.login__logo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    object-fit: contain;
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.login__container {
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    padding: 20px;
+}
+
+.login__container > h1 {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.login__container > form > h5 {
+    margin-bottom: 5px;
+}
+
+.login__container > form > input {
+    margin-bottom: 10px;
+    height: 30px;
+    background-color: white;
+    width: 98%;
+}
+
+.login__container > p {
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.login__signInButton {
+    background: rgb(120, 185, 255);
+    border: 1px solid rgb(77, 153, 252);;
+    margin-top: 10px;
+    color: white;
+    border-radius: 2px;
+    width: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+.login__demoSignInButton {
+    background: rgb(120, 185, 255);
+    border: 2px solid rgb(77, 153, 252);;
+    margin-top: 10px;
+    color: white;
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+    box-shadow: 0 0 0 0 rgb(120, 185, 255);
+    cursor: pointer;
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+.login__demoSignInButton:hover
+{
+    -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+}
+
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+
+.login__registerButton {
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+    border: 1px solid darkgray;
+    margin-top: 10px;
+    cursor: pointer;
+}

@@ -1,0 +1,48 @@
+.header {
+    height: 60px;
+    background-color: rgb(120, 185, 255);
+    display: flex;
+}
+
+.header__logo {
+    height: 60px;
+    margin-left: 20px;
+}
+
+.header__logo > a > img {
+    height: 60px;
+}
+
+.header__menu {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.header__menuOption {
+    display: flex;
+    height: 60px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header__menuOptionAvatar {
+    display: flex;
+    height: 60px;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header__menuOption > a {
+    text-decoration: none;
+    color: white;
+}
+
+.header__menuOption:hover {
+    background-color: rgb(77, 153, 252);
+}
