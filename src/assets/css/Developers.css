@@ -50,6 +50,23 @@
 }
 
 .developers__list {
-    margin-top: 30px;
-    display: flex;
+    margin-top: 50px;
+    border-top: 1px solid lightgrey;
+    overflow-y: auto;
+    margin-bottom: 30px;
+}
+
+.developers__list > div:last-child {
+    border-bottom: none!important;
+}
+
+/* Hide scrollbar for Crome, Safari and Opera */
+.developers__list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.developers__list {
+    -ms-overflow-style: none; /* IE and EDGE */
+    scrollbar-width: none; /* Firefox */
 }

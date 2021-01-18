@@ -1,0 +1,166 @@
+.contactDeveloper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 93.6vh;
+    background-color: #f3f3f3;
+}
+
+.contactDeveloper__container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    width: 60%;
+    min-height: 90%;
+    background-color: white;
+}
+
+.contactDeveloper__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 10px;
+    height: 60px;
+}
+
+.contactDeveloper__body {
+    display: flex;
+}
+
+.contactDeveloper__inputs {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 0.6;
+    height: 100%;
+    padding: 25px;
+}
+
+.contactDeveloper__developerCard {
+    display: flex;
+    flex: 0.4;
+    height: fit-content;
+    padding: 15px;
+}
+
+.contactDeveloper__inputsNameSurname {
+    display: flex;
+    width: 100%;
+}
+
+.contactDeveloper__inputsNameSurname > div {
+    height: fit-content;
+    margin: 10px;
+    width: 100%;
+}
+
+.contactDeveloper__input {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.contactDeveloper__input > div {
+    height: fit-content;
+    margin: 10px;
+    width: 100%;
+}
+
+.contactDeveloper__developerCard {
+    padding: 25px;
+}
+
+.contactDeveloper__developerCardContainer {
+    background-color: #f3f3f3;
+    width: 100%;
+    height: 70%;
+    border-radius: 10px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contactDeveloper__developerCardAvatar {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.contactDeveloper__developerCardAvatar > div {
+    height: 100px;
+    width: 100px;
+}
+
+.contactDeveloper__developerCardHeader {
+    padding: 10px;
+}
+
+.contactDeveloper__developerCardHeader > div {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.contactDeveloper__developerCardHeader > div > p {
+    width: 50%;
+    color: grey;
+}
+
+.contactDeveloper__developerCardHeader > div > strong {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    color: #4774b7;
+}
+
+.contactDeveloper__developerCardHeader > hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid lightgrey;
+    margin-top: 1em;
+    padding: 0;
+}
+
+.contactDeveloper__developerCardText > hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid lightgrey;
+    margin-top: 1em;
+    padding: 0;
+}
+
+.contactDeveloper__developerCardText {
+    padding: 10px;
+    color: grey;
+}
+
+.contactDeveloper__developerCardLocation {
+    padding: 0 10px;
+}
+
+.contactDeveloper__developerCardLocation > span {
+    display: flex;
+    align-items: center;
+    color: grey;
+}
+
+.contactDeveloper__button {
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.contactDeveloper__button > button {
+    width: 100%;
+    background-color: rgb(120, 185, 255);
+}
+
+.contactDeveloper__button > button:hover {
+    background-color: rgb(77, 153, 252);
+}

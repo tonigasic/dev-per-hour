@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
 import Developers from "./components/Developers";
+import ContactDeveloper from "./components/ContactDeveloper";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
                 <Route path="/developers">
                     <Header/>
                     <Developers/>
+                </Route>
+                <Route path="/contact/dev">
+                    <Header/>
+                    <ContactDeveloper/>
                 </Route>
                 <Route path="/">
                     <Header/>

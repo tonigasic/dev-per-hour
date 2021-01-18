@@ -13,6 +13,15 @@ function Developers() {
                 </div>
                 <div className="developers__list">
                     <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
+                    <DeveloperCard/>
                 </div>
             </div>
         </div>
