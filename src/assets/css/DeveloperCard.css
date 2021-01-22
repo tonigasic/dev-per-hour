@@ -5,6 +5,10 @@
     display: flex;
 }
 
+.developerCard:hover {
+    background-color: #f3f3f3;
+}
+
 .developerCard__avatar {
     display: flex;
     justify-content: center;
@@ -51,7 +55,7 @@
     padding: 10px;
 }
 
-.developerCard__buttons > div:nth-child(2) > a {
+.developerCard__buttons > div > a {
     text-decoration: none;
 }
 

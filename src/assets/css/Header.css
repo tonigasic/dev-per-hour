@@ -38,7 +38,7 @@
     cursor: pointer;
 }
 
-.header__menuOption > a {
+.header__menu > a {
     text-decoration: none;
     color: white;
 }

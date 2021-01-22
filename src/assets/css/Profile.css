@@ -1,0 +1,147 @@
+.profile__root {
+    width: 100%;
+    background-color: #f3f3f3;
+    height: calc(100% - 60px);
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    min-height: 90%;
+}
+
+.profile__container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    width: 60%;
+    min-height: 90%;
+    background-color: white;
+}
+
+.profile__containerLeft {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-right: 1px solid grey;
+}
+
+.profile__imageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.profile__imageContainer > div > img {
+    width: fit-content;
+    height: fit-content;
+}
+
+.profile__imageContainer > div {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid grey;
+}
+
+.profile__containerRight {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.profile__containerRight > div {
+    display: flex;
+}
+
+.profile__contactButton {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profile__contactButton > a > button {
+    background-color: rgb(120, 185, 255);
+}
+
+.profile__contactButton > a > button:hover {
+    background-color: rgb(77, 153, 252);
+}
+
+.profile__contactButton > a {
+    text-decoration: none;
+}
+
+.profile__skills {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.profile__skills > h3 {
+    color: lightgrey;
+}
+
+.profile__skills > h4 {
+    color: grey;
+}
+
+.profile__name {
+    width: 80%;
+    margin-left: 30px;
+}
+
+.profile__name > h2, h4 {
+    color: grey;
+}
+
+.profile__name > h3 {
+    color: rgb(40, 110, 198);
+}
+
+.profile__details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.profile__detailsInfo {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__detailsInfo > div {
+    display: flex;
+    margin-top: 15px;
+}
+
+.profile__detailsInfoKey {
+    width: 30%;
+}
+
+.profile__detailsInfoValue {
+    width: 70%;
+}
+
+.profile__about {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+
+.profile__about > p {
+    margin-top: 15px;
+}

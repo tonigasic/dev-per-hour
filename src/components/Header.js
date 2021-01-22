@@ -17,43 +17,43 @@ function Header() {
                 </Link>
             </div>
             <div className="header__menu">
-                <div className="header__menuOption">
-                    <Link to={"/login"}>
+                <Link to={"/login"}>
+                    <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">Sign In</span>
                         </div>
-                    </Link>
-                </div>
-                <div className="header__menuOption">
-                    <Link to={"/developers"}>
+                    </div>
+                </Link>
+                <Link to={"/developers"}>
+                    <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">Developers</span>
                         </div>
-                    </Link>
-                </div>
-                <div className="header__menuOption">
-                    <Link to={"/jobs"}>
+                    </div>
+                </Link>
+                <Link to={"/jobs"}>
+                    <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">Jobs</span>
                         </div>
-                    </Link>
-                </div>
-                <div className="header__menuOption">
-                    <Link to={"/history"}>
+                    </div>
+                </Link>
+                <Link to={"/history"}>
+                    <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">History</span>
                         </div>
-                    </Link>
-                </div>
-                <div className="header__menuOptionAvatar">
-                    <Link to={"/profile"}>
+                    </div>
+                </Link>
+                <Link to={"/profile"}>
+                    <div className="header__menuOptionAvatar">
                         <div className="header__option">
                             <IconButton>
                                 <Avatar src={DefaultAvatar}/>
                             </IconButton>
                         </div>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
             </div>
         </div>
     )

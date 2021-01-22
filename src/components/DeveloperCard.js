@@ -10,7 +10,7 @@ function DeveloperCard() {
         <div className="developerCard">
             <div className="developerCard__avatar">
                 <IconButton>
-                    <Link to={'/contact/dev'}>
+                    <Link to={'/developers/profile'}>
                         <Avatar
 
                         />
@@ -35,12 +35,14 @@ function DeveloperCard() {
                     <strong>€15 <small>/hr</small></strong>
                 </div>
                 <div>
-                    <Link to={'/contact/dev'}>
+                    <Link to={'/developers/contact'}>
                         <Button variant="contained">Contact</Button>
                     </Link>
                 </div>
                 <div>
-                    <Button color="primary">View Profile</Button>
+                    <Link to={'/developers/profile'}>
+                        <Button color="primary">View Profile</Button>
+                    </Link>
                 </div>
             </div>
         </div>

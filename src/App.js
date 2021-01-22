@@ -6,6 +6,7 @@ import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
 import Developers from "./components/Developers";
 import ContactDeveloper from "./components/ContactDeveloper";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -15,13 +16,17 @@ function App() {
                 <Route path="/login">
                     <Login/>
                 </Route>
+                <Route path="/developers/contact">
+                    <Header/>
+                    <ContactDeveloper/>
+                </Route>
+                <Route path="/developers/profile">
+                    <Header/>
+                    <Profile/>
+                </Route>
                 <Route path="/developers">
                     <Header/>
                     <Developers/>
-                </Route>
-                <Route path="/contact/dev">
-                    <Header/>
-                    <ContactDeveloper/>
                 </Route>
                 <Route path="/">
                     <Header/>

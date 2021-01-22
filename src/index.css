@@ -7,8 +7,17 @@ body {
   font-family: "Canela Deck Bold"!important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
   font-family: "Canela Deck Bold"!important;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
