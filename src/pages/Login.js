@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './assets/css/Login.css';
-import Logo from './assets/img/dev-per-hour-logo.png';
+import '../assets/css/Login.css';
+import Logo from '../assets/img/dev-per-hour-logo.png';
 import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
+import {Link} from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -38,7 +39,9 @@ function Login() {
                     <p>
                         By signing-in you agree to the Dev-Per-Hour Conditions of Use & Sale. Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                     </p>
-                    <button className="login__registerButton">Create your DPH Account</button>
+                    <Link to={'/registration'}>
+                        <button className="login__registerButton">Create your DPH Account</button>
+                    </Link>
                 </div>
             </StyleRoot>
         </div>

@@ -1,6 +1,6 @@
 import './App.css';
 import Header from "./components/Header";
-import Login from "./Login";
+import Login from "./pages/Login";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Footer from "./components/Footer";
@@ -9,6 +9,7 @@ import ContactDeveloper from "./pages/ContactDeveloper";
 import Profile from "./pages/Profile";
 import Jobs from "./pages/Jobs";
 import JobDescription from "./pages/JobDescription";
+import Registration from "./pages/Registration";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
             <Switch>
                 <Route path="/login">
                     <Login/>
+                </Route>
+                <Route path="/registration">
+                    <Registration/>
                 </Route>
                 <Route path="/developers/contact">
                     <Header/>
