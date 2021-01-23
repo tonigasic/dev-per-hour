@@ -7,11 +7,11 @@ import {Button} from "@material-ui/core";
 import { fadeIn , fadeInUp } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import {Link} from "react-router-dom";
-import CompanyImages from './../Companies';
-import DevsImage from './../assets/img/svg/devs.svg';
-import InvoiceImage from './../assets/img/svg/invoice.svg';
-import JobsImage from './../assets/img/svg/jobs.svg';
-import MessagesImage from './../assets/img/svg/messages.svg';
+import CompanyImages from '../Companies';
+import DevsImage from '../assets/img/svg/devs.svg';
+import InvoiceImage from '../assets/img/svg/invoice.svg';
+import JobsImage from '../assets/img/svg/jobs.svg';
+import MessagesImage from '../assets/img/svg/messages.svg';
 
 function LandingPage() {
     const styles = {

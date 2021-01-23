@@ -1,5 +1,5 @@
 import React from "react";
-import './../assets/css/ContactDeveloper.css';
+import '../assets/css/ContactDeveloper.css';
 import TextField from '@material-ui/core/TextField';
 import {Avatar, Button} from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";

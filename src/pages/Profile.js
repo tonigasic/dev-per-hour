@@ -1,5 +1,5 @@
 import React from "react";
-import './../assets/css/Profile.css';
+import '../assets/css/Profile.css';
 import ModalImage from "react-modal-image";
 import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";

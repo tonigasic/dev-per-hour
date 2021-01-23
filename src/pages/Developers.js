@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/css/Developers.css';
 import SearchIcon from '@material-ui/icons/Search';
-import DeveloperCard from "./DeveloperCard";
+import DeveloperCard from "../components/DeveloperCard";
 
 function Developers() {
     return (

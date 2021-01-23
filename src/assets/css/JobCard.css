@@ -1,0 +1,44 @@
+.jobCard {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    cursor: pointer;
+}
+
+.jobCard:hover {
+    background-color: #f3f3f3;
+}
+
+.jobCard__title {
+    padding-left: 25px;
+}
+
+.jobCard__price {
+    padding-left: 25px;
+}
+
+.jobCard__description {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.jobCard__info {
+    display: flex;
+    padding-left: 25px;
+}
+
+.jobCard__info > div {
+    width: 33%;
+}
+
+.jobCard__skills {
+    padding-left: 25px;
+}
+
+.jobCard__skills > div {
+    margin-right: 5px;
+}

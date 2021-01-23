@@ -1,0 +1,109 @@
+.jobDescription__root {
+    width: 100%;
+    background-color: #f3f3f3;
+    height: calc(100% - 60px);
+}
+
+.jobDescription {
+    display: flex;
+    min-height: 90%;
+    justify-content: center;
+}
+
+.jobDescription__container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    width: 60%;
+    min-height: 90%;
+    background-color: white;
+    flex-direction: column;
+}
+
+.jobDescription__title {
+    width: 100%;
+    height: fit-content;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    justify-content: center;
+}
+
+.jobDescription__title > h2 {
+    padding: 25px;
+}
+
+.jobDescription__details {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgrey;
+}
+
+.jobDescription__details > div {
+    display: flex;
+    padding: 25px;
+}
+
+.jobDescription__details > div > div {
+    width: 33%;
+    display: flex;
+}
+
+.jobDescription__detailsWithIcon {
+    margin-right: 5px;
+}
+
+.jobDescription__description > div {
+    padding: 25px;
+}
+
+.jobDescription__description {
+    border-bottom: 1px solid lightgrey;
+    width: 100%;
+    height: fit-content;
+}
+
+.jobDescription__type > p {
+    padding: 25px;
+}
+
+.jobDescription__type {
+    border-bottom: 1px solid lightgrey;
+    width: 100%;
+    height: fit-content;
+}
+
+.jobDescription__skills > div {
+    padding: 25px;
+}
+
+.jobDescription__skills {
+    width: 100%;
+    height: fit-content;
+}
+
+.jobDescription__skillChips > div {
+    margin-right: 5px;
+}
+
+.jobDescription__button > div {
+    padding: 25px;
+}
+
+.jobDescription__button {
+    border-top: 1px solid lightgrey;
+    width: 100%;
+    height: fit-content;
+}
+
+.jobDescription__button > div > button {
+    width: 100%;
+    background-color: rgb(120, 185, 255);
+}
+
+.jobDescription__button > div > button:hover {
+    background-color: rgb(77, 153, 252);
+}

@@ -1,0 +1,65 @@
+.jobs {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 93.6vh;
+    background-color: #f3f3f3;
+}
+
+.jobs__container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    width: 60%;
+    min-height: 90%;
+    background-color: white;
+    flex-direction: column;
+}
+
+.jobs__search {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 24px;
+}
+
+.jobs__searchInput:focus {
+    outline: none !important;
+    border: 1px solid rgb(40, 110, 198) !important;
+}
+
+.jobs__searchInput {
+    height: 12px;
+    padding: 10px;
+    border: 1px solid rgb(120, 185, 255);
+    width: 80%;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.jobs__searchIcon {
+    padding: 5px;
+    height: 24px !important;
+    background-color: rgb(120, 185, 255);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.jobs__list {
+    margin-top: 50px;
+    border-top: 1px solid lightgrey;
+    margin-bottom: 30px;
+}
+
+.jobs__list > a:last-child > div {
+    border-bottom: none!important;
+}
+
+.jobs__list > a {
+    text-decoration: none;
+    color: black;
+}
