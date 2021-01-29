@@ -6,7 +6,7 @@ import Radium, {StyleRoot} from 'radium';
 import {Link} from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {postRequest} from '../Request';
 import { useHistory } from "react-router-dom";
 

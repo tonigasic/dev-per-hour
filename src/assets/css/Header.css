@@ -46,3 +46,23 @@
 .header__menuOption:hover {
     background-color: rgb(77, 153, 252);
 }
+
+.header__menuOptionWithName:hover {
+    background-color: rgb(77, 153, 252);
+}
+
+.header__menuOptionWithName {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    width: fit-content;
+    cursor: pointer;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
+
+.header__menuOptionWithName > .header__optionDisplayBane {
+    font-size: 10px;
+}

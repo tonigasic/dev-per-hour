@@ -65,7 +65,7 @@ function LandingPage() {
                     <div className="landingPage__trustedInfoCompanies" style={styles.fadeIn5}>
                         { CompanyImages?.Images?.map((image, index) => {
                             return (
-                                <div>
+                                <div key={index}>
                                     <img src={image.src} alt=""/>
                                 </div>
                             )
