@@ -1,7 +1,7 @@
 import './App.css';
 import Header from "./components/Header";
 import Login from "./pages/Login";
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Footer from "./components/Footer";
 import Developers from "./pages/Developers";
@@ -11,7 +11,8 @@ import Jobs from "./pages/Jobs";
 import JobDescription from "./pages/JobDescription";
 import Registration from "./pages/Registration";
 
-function App() {
+const App = () => {
+
   return (
       <Router>
         <div className="app">
