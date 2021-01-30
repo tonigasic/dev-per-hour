@@ -94,7 +94,6 @@ function Login() {
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="new-password"/>
 
                         <button className="login__signInButton" onClick={login}>Sign in</button>
-                        <button className="login__demoSignInButton">Demo Sign in</button>
                     </form>
                     <p>
                         By signing-in you agree to the Dev-Per-Hour Conditions of Use & Sale. Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.

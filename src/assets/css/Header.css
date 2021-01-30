@@ -38,6 +38,10 @@
     cursor: pointer;
 }
 
+.header__menuOptionAvatar:hover + .header__userExtraMenu {
+    display: flex;
+}
+
 .header__menu > a {
     text-decoration: none;
     color: white;
@@ -65,4 +69,51 @@
 
 .header__menuOptionWithName > .header__optionDisplayBane {
     font-size: 10px;
+}
+
+.header__userExtraMenu {
+    position: absolute;
+    top: 61px;
+    right: 1px;
+    height: fit-content;
+    width: 200px;
+    background-color: rgb(120, 185, 255);
+    border-radius: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
+    display: none;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+}
+
+.header__userExtraMenu:hover {
+    display: flex;
+}
+
+.header__userExtraMenu > div {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.header__userExtraMenu > div:hover {
+    background-color: rgb(77, 153, 252);
+    cursor: pointer;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

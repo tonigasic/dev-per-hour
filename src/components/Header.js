@@ -10,6 +10,7 @@ import {selectUser} from "../redux/User/reducer";
 function Header() {
     const user = useSelector(selectUser);
     const [displayName, setDisplayName] = useState(null);
+    const [showUserExtraMenu, setShowUserExtraMenu] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -66,22 +67,27 @@ function Header() {
                         </div>
                     </div>
                 </Link>
-                <Link to={"/history"}>
-                    <div className="header__menuOption">
-                        <div className="header__option">
-                            <span className="header__optionLineOne">History</span>
-                        </div>
+                <div className="header__menuOptionAvatar">
+                    <div className="header__option">
+                        <IconButton onClick={e => setShowUserExtraMenu(!showUserExtraMenu)}>
+                            <Avatar src={DefaultAvatar}/>
+                        </IconButton>
                     </div>
-                </Link>
-                <Link to={"/profile"}>
-                    <div className="header__menuOptionAvatar">
-                        <div className="header__option">
-                            <IconButton>
-                                <Avatar src={DefaultAvatar}/>
-                            </IconButton>
-                        </div>
+                </div>
+                <div className="header__userExtraMenu">
+                    <div>
+                        some option
                     </div>
-                </Link>
+                    <div>
+                        some option
+                    </div>
+                    <div>
+                        some option
+                    </div>
+                    <div>
+                        some option
+                    </div>
+                </div>
             </div>
         </div>
     )
