@@ -40,52 +40,44 @@ function Header() {
             </div>
             <div className="header__menu">
                     { displayName ?
-                        <div className="header__menuOptionWithName" onClick={logout}>
-                            <span className="header__optionDisplayBane">Hello {displayName}</span>
-                            <span className="header__optionLineOne">Sign Out</span>
+                        <div className="header__menuOptionWithName">
+                            <span className="header__optionLineOne">Hello {displayName}</span>
                         </div>
                         :
-                        <Link to={"/login"}>
-                            <div className="header__menuOption">
-                                <div className="header__option">
-                                    <span className="header__optionLineOne">Sign In</span>
-                                </div>
-                            </div>
-                        </Link>
+                        ''
                     }
-                <Link to={"/developers"}>
                     <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">Developers</span>
                         </div>
+                        <div className="header__submenu">
+                            <Link to={"/developers"}>
+                                <div>Hire Developers</div>
+                            </Link>
+                            <div>Saved Developers</div>
+                        </div>
                     </div>
-                </Link>
-                <Link to={"/jobs"}>
                     <div className="header__menuOption">
                         <div className="header__option">
                             <span className="header__optionLineOne">Jobs</span>
                         </div>
+                        <div className="header__submenu">
+                            <Link to={"/jobs"}>
+                                <div>Find Job</div>
+                            </Link>
+                            <div>Saved Jobs</div>
+                            <div>Post A Job</div>
+                        </div>
                     </div>
-                </Link>
                 <div className="header__menuOptionAvatar">
                     <div className="header__option">
                         <IconButton onClick={e => setShowUserExtraMenu(!showUserExtraMenu)}>
                             <Avatar src={DefaultAvatar}/>
                         </IconButton>
                     </div>
-                </div>
-                <div className="header__userExtraMenu">
-                    <div>
-                        some option
-                    </div>
-                    <div>
-                        some option
-                    </div>
-                    <div>
-                        some option
-                    </div>
-                    <div>
-                        some option
+                    <div className="header__submenu">
+                        <div>My Profile</div>
+                        <div onClick={logout}>Sing Out</div>
                     </div>
                 </div>
             </div>

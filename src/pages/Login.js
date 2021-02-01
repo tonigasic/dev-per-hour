@@ -25,6 +25,20 @@ function Login() {
         },
     };
 
+    const handleInputChange = (e, type) => {
+        if (e.key === 'Enter') {
+            return login(e);
+        }
+        let value = e.target.value;
+
+        if (type === 'email') {
+            setEmail(value);
+        }
+        if (type === 'password') {
+            setPassword(value);
+        }
+    }
+
     const handleCloseSnackbar = (event, reason) => {
         setOpenSnackbar(false);
     };
@@ -88,11 +102,9 @@ function Login() {
                     <h1>Sign-in</h1>
                     <form>
                         <h5>E-Mail</h5>
-                        <input type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-
+                        <input type="text" value={email} onChange={e => handleInputChange(e, 'email')}/>
                         <h5>Password</h5>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="new-password"/>
-
+                        <input type="password" value={password} onChange={e => handleInputChange(e, 'password')} autoComplete="new-password"/>
                         <button className="login__signInButton" onClick={login}>Sign in</button>
                     </form>
                     <p>

@@ -23,10 +23,28 @@
 .header__menuOption {
     display: flex;
     height: 60px;
-    width: 100px;
+    width: 150px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.header__menuOption:hover {
+    background-color: rgb(77, 153, 252);
+}
+
+.header__option:hover + .header__submenu {
+    display: flex;
+}
+
+.header__option {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header__menuOptionAvatar {
@@ -38,47 +56,32 @@
     cursor: pointer;
 }
 
-.header__menuOptionAvatar:hover + .header__userExtraMenu {
-    display: flex;
-}
-
-.header__menu > a {
-    text-decoration: none;
+.header__menu {
     color: white;
-}
-
-.header__menuOption:hover {
-    background-color: rgb(77, 153, 252);
-}
-
-.header__menuOptionWithName:hover {
-    background-color: rgb(77, 153, 252);
 }
 
 .header__menuOptionWithName {
     display: flex;
     flex-direction: column;
     height: 60px;
-    width: fit-content;
-    cursor: pointer;
     justify-content: center;
+    align-items: center;
     padding-left: 10px;
     padding-right: 10px;
     color: white;
+    width: 150px;
 }
 
 .header__menuOptionWithName > .header__optionDisplayBane {
     font-size: 10px;
 }
 
-.header__userExtraMenu {
+.header__submenu {
     position: absolute;
-    top: 61px;
-    right: 1px;
+    top: 60px;
     height: fit-content;
     width: 200px;
     background-color: rgb(120, 185, 255);
-    border-radius: 2px;
     padding-top: 5px;
     padding-bottom: 5px;
     justify-content: center;
@@ -92,11 +95,12 @@
     animation-duration: 0.3s;
 }
 
-.header__userExtraMenu:hover {
-    display: flex;
+.header__menuOptionAvatar > .header__submenu {
+    right: 1px;
+    width: 150px;
 }
 
-.header__userExtraMenu > div {
+.header__submenu > div {
     height: 30px;
     display: flex;
     align-items: center;
@@ -104,9 +108,31 @@
     width: 100%;
 }
 
-.header__userExtraMenu > div:hover {
+.header__submenu > a {
+    text-decoration: none;
+    color: white;
+}
+
+.header__submenu > a > div {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.header__submenu > div:hover {
     background-color: rgb(77, 153, 252);
     cursor: pointer;
+}
+
+.header__submenu > a > div:hover {
+    background-color: rgb(77, 153, 252);
+    cursor: pointer;
+}
+
+.header__submenu:hover {
+    display: flex;
 }
 
 @keyframes fadeInOpacity {
