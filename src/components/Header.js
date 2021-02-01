@@ -77,6 +77,9 @@ function Header() {
                     </div>
                     <div className="header__submenu">
                         <div>My Profile</div>
+                        <Link to={"/user/profile"}>
+                            <div>Account</div>
+                        </Link>
                         <div onClick={logout}>Sing Out</div>
                     </div>
                 </div>

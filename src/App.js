@@ -10,6 +10,8 @@ import Profile from "./pages/Profile";
 import Jobs from "./pages/Jobs";
 import JobDescription from "./pages/JobDescription";
 import Registration from "./pages/Registration";
+import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
+import UserEdit from "./pages/UserEdit";
 
 const App = () => {
 
@@ -42,6 +44,10 @@ const App = () => {
                 <Route path="/jobs">
                     <Header/>
                     <Jobs/>
+                </Route>
+                <Route path="/user/profile">
+                    <Header/>
+                    <UserEdit/>
                 </Route>
                 <Route path="/">
                     <Header/>
