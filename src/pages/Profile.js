@@ -1,10 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../assets/css/Profile.css';
 import ModalImage from "react-modal-image";
 import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectUser} from "../redux/User/reducer";
 
 function Profile() {
+    const user = useSelector(selectUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (user && user.isLoggedIn) {
+            setUserLoggedIn(true);
+        }
+    }, [user]);
+
     return (
         <div className="profile__root">
             <div className="profile">
@@ -41,9 +52,13 @@ function Profile() {
                                 <h4>Ratings: 7/10</h4>
                             </div>
                             <div className="profile__contactButton">
-                                <Link to={'/developers/contact'}>
-                                    <Button variant="contained">Contact</Button>
-                                </Link>
+                                { userLoggedIn ?
+                                    <Link to={'/developers/contact'}>
+                                        <Button variant="contained">Contact</Button>
+                                    </Link>
+                                    :
+                                    <Button disabled variant="contained">Contact</Button>
+                                }
                             </div>
                         </div>
 

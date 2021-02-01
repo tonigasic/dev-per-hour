@@ -9,6 +9,7 @@ import {selectUser} from "../redux/User/reducer";
 
 function Header() {
     const user = useSelector(selectUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [displayName, setDisplayName] = useState(null);
     const [showUserExtraMenu, setShowUserExtraMenu] = useState(false);
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function Header() {
 
     useEffect(() => {
         if (user && user.isLoggedIn) {
+            setUserLoggedIn(true);
             setDisplayName(user.user.first_name + ' ' + user.user.last_name);
         }
     }, [user]);
@@ -39,50 +41,60 @@ function Header() {
                 </Link>
             </div>
             <div className="header__menu">
-                    { displayName ?
-                        <div className="header__menuOptionWithName">
-                            <span className="header__optionLineOne">Hello {displayName}</span>
-                        </div>
-                        :
-                        ''
-                    }
-                    <div className="header__menuOption">
-                        <div className="header__option">
-                            <span className="header__optionLineOne">Developers</span>
-                        </div>
-                        <div className="header__submenu">
-                            <Link to={"/developers"}>
-                                <div>Hire Developers</div>
-                            </Link>
-                            <div>Saved Developers</div>
-                        </div>
+                { userLoggedIn && displayName ?
+                    <div className="header__menuOptionWithName">
+                        <span className="header__optionLineOne">Hello {displayName}</span>
                     </div>
-                    <div className="header__menuOption">
-                        <div className="header__option">
-                            <span className="header__optionLineOne">Jobs</span>
+                    :
+                    <Link to={"/login"}>
+                        <div className="header__menuOption">
+                            <div className="header__option">
+                                <span className="header__optionLineOne">Sign In</span>
+                            </div>
                         </div>
-                        <div className="header__submenu">
-                            <Link to={"/jobs"}>
-                                <div>Find Job</div>
-                            </Link>
-                            <div>Saved Jobs</div>
-                            <div>Post A Job</div>
-                        </div>
-                    </div>
-                <div className="header__menuOptionAvatar">
+                    </Link>
+                }
+                <div className="header__menuOption">
                     <div className="header__option">
-                        <IconButton onClick={e => setShowUserExtraMenu(!showUserExtraMenu)}>
-                            <Avatar src={DefaultAvatar}/>
-                        </IconButton>
+                        <span className="header__optionLineOne">Developers</span>
                     </div>
                     <div className="header__submenu">
-                        <div>My Profile</div>
-                        <Link to={"/user/profile"}>
-                            <div>Account</div>
+                        <Link to={"/developers"}>
+                            <div>Hire Developers</div>
                         </Link>
-                        <div onClick={logout}>Sing Out</div>
+                        <div>Saved Developers</div>
                     </div>
                 </div>
+                <div className="header__menuOption">
+                    <div className="header__option">
+                        <span className="header__optionLineOne">Jobs</span>
+                    </div>
+                    <div className="header__submenu">
+                        <Link to={"/jobs"}>
+                            <div>Find Job</div>
+                        </Link>
+                        <div>Saved Jobs</div>
+                        <div>Post A Job</div>
+                    </div>
+                </div>
+                { userLoggedIn ?
+                    <div className="header__menuOptionAvatar">
+                        <div className="header__option">
+                            <IconButton onClick={e => setShowUserExtraMenu(!showUserExtraMenu)}>
+                                <Avatar src={DefaultAvatar}/>
+                            </IconButton>
+                        </div>
+                        <div className="header__submenu">
+                            <div>My Profile</div>
+                            <Link to={"/user/profile"}>
+                                <div>Account</div>
+                            </Link>
+                            <div onClick={logout}>Sing Out</div>
+                        </div>
+                    </div>
+                    :
+                    ''
+                }
             </div>
         </div>
     )

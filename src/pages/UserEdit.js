@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {InputAdornment} from "@material-ui/core";
+import {useHistory} from "react-router-dom";
 
 function UserEdit () {
     const user = useSelector(selectUser);
@@ -19,6 +20,13 @@ function UserEdit () {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!user || !user.isLoggedIn || !user.user) {
+            history.push('/login')
+        }
+    }, []);
 
     const styles = {
         fadeIn: {
@@ -28,9 +36,11 @@ function UserEdit () {
     };
 
     useEffect(() => {
-        setEmail(user.user.email);
-        setFirstName(user.user.first_name);
-        setLastName(user.user.last_name);
+        if (user && user.isLoggedIn && user.user) {
+            setEmail(user.user.email);
+            setFirstName(user.user.first_name);
+            setLastName(user.user.last_name);
+        }
     }, [user]);
 
     const handleCloseSnackbar = () => {

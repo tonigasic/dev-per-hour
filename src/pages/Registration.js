@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './../assets/css/Registration.css';
 import Logo from '../assets/img/dev-per-hour-logo-small.png';
 import Radium, {StyleRoot} from "radium";
@@ -13,6 +13,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
 import {postRequest} from "../Request";
 import {Modal} from "@material-ui/core";
+import {useSelector} from "react-redux";
+import {selectUser} from "../redux/User/reducer";
 
 function Registration() {
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -25,6 +27,13 @@ function Registration() {
     const [terms, setTerms] = useState(false);
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (user && user.isLoggedIn && user.user) {
+            history.push('/')
+        }
+    }, []);
 
     const styles = {
         fadeIn: {

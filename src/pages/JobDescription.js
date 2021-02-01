@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../assets/css/JobDescription.css';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -7,8 +7,19 @@ import TimerIcon from '@material-ui/icons/Timer';
 import RoomIcon from '@material-ui/icons/Room';
 import Chip from "@material-ui/core/Chip";
 import {Button} from "@material-ui/core";
+import {useSelector} from "react-redux";
+import {selectUser} from "../redux/User/reducer";
 
 function JobDescription() {
+    const user = useSelector(selectUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (user && user.isLoggedIn) {
+            setUserLoggedIn(true);
+        }
+    }, [user]);
+
     return (
         <div className="jobDescription__root">
             <div className="jobDescription">
@@ -90,7 +101,7 @@ function JobDescription() {
                     </div>
                     <div className="jobDescription__button">
                         <div>
-                            <Button variant="contained">Apply for Job</Button>
+                            <Button disabled={!userLoggedIn} variant="contained">Apply for Job</Button>
                         </div>
                     </div>
                 </div>

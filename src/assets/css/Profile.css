@@ -73,6 +73,10 @@
     background-color: rgb(120, 185, 255);
 }
 
+.profile__contactButton > button {
+    height: fit-content;
+}
+
 .profile__contactButton > a > button:hover {
     background-color: rgb(77, 153, 252);
 }

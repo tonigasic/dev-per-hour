@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../assets/css/ContactDeveloper.css';
 import TextField from '@material-ui/core/TextField';
 import {Avatar, Button} from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
+import {useSelector} from "react-redux";
+import {selectUser} from "../redux/User/reducer";
+import {useHistory} from "react-router-dom";
 
 function ContactDeveloper() {
+    const user = useSelector(selectUser);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!user || !user.isLoggedIn || !user.user) {
+            history.push('/login')
+        }
+    }, []);
+
     return (
         <div className="contactDeveloper">
             <div className="contactDeveloper__container">

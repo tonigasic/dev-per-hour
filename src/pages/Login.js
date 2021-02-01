@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/css/Login.css';
 import Logo from '../assets/img/dev-per-hour-logo.png';
 import { fadeIn } from 'react-animations';
@@ -6,9 +6,10 @@ import Radium, {StyleRoot} from 'radium';
 import {Link} from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {postRequest} from '../Request';
 import { useHistory } from "react-router-dom";
+import {selectUser} from "../redux/User/reducer";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -17,6 +18,13 @@ function Login() {
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (user && user.isLoggedIn && user.user) {
+            history.push('/')
+        }
+    }, []);
 
     const styles = {
         fadeIn: {

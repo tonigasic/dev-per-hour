@@ -1,11 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/css/DeveloperCard.css';
 import {Avatar, Button, IconButton} from "@material-ui/core";
 import RoomIcon from '@material-ui/icons/Room';
 import Chip from '@material-ui/core/Chip';
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectUser} from "../redux/User/reducer";
 
 function DeveloperCard() {
+    const user = useSelector(selectUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (user && user.isLoggedIn) {
+            setUserLoggedIn(true);
+        }
+    }, [user]);
+
     return (
         <div className="developerCard">
             <div className="developerCard__avatar">
@@ -35,9 +46,13 @@ function DeveloperCard() {
                     <strong>€15 <small>/hr</small></strong>
                 </div>
                 <div>
-                    <Link to={'/developers/contact'}>
-                        <Button variant="contained">Contact</Button>
-                    </Link>
+                    { userLoggedIn ?
+                        <Link to={'/developers/contact'}>
+                            <Button variant="contained">Contact</Button>
+                        </Link>
+                        :
+                        <Button disabled variant="contained">Contact</Button>
+                    }
                 </div>
                 <div>
                     <Link to={'/developers/profile'}>

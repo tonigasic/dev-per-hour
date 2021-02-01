@@ -10,12 +10,10 @@ import Profile from "./pages/Profile";
 import Jobs from "./pages/Jobs";
 import JobDescription from "./pages/JobDescription";
 import Registration from "./pages/Registration";
-import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
 import UserEdit from "./pages/UserEdit";
 
 const App = () => {
-
-  return (
+    return (
       <Router>
         <div className="app">
             <Switch>
@@ -57,7 +55,7 @@ const App = () => {
             </Switch>
         </div>
       </Router>
-  );
+    );
 }
 
 export default App;
