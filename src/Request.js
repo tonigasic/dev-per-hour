@@ -14,3 +14,18 @@ export const postRequest = (path, body, resolve, reject) => {
             }
         })
 };
+
+export const getRequest = (path, resolve, reject) => {
+    axios.get(path)
+        .then((response) => {
+            resolve(response);
+        })
+        .catch((err) => {
+            if (err.response.data && typeof err.response.data === "string") {
+                reject(err.response.data);
+            }
+            else {
+                reject('Could not fetch data');
+            }
+        })
+};

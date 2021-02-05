@@ -63,7 +63,7 @@ function UserEdit () {
                             <TextField label="Account Type" variant="outlined" size="small" value={'Freelancer'} disabled />
                         </div>
                         <div className="userEdit__inputsEmail">
-                            <TextField label="Email" variant="outlined" size="small" value={email} onChange={e => setEmail(e.target.value)}/>
+                            <TextField label="Email" variant="outlined" size="small" value={email} onChange={e => setEmail(e.target.value)} disabled />
                         </div>
                         <div className="userEdit__inputsNameSurname">
                             <TextField label="First Name" variant="outlined" size="small" value={firstName} onChange={e => setFirstName(e.target.value)}/>

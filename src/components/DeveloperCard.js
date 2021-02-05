@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
 
-function DeveloperCard() {
+function DeveloperCard({id, name, profession, city, countryCode, picture, skills}) {
     const user = useSelector(selectUser);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
 
@@ -15,6 +15,7 @@ function DeveloperCard() {
         if (user && user.isLoggedIn) {
             setUserLoggedIn(true);
         }
+        console.log(atob(picture))
     }, [user]);
 
     return (
@@ -23,22 +24,23 @@ function DeveloperCard() {
                 <IconButton>
                     <Link to={'/developers/profile'}>
                         <Avatar
-
+                            src={picture ? atob(picture) : ''}
                         />
                     </Link>
                 </IconButton>
             </div>
             <div className="developerCard__infos">
-                <h2>Larisa P.</h2><br/>
-                <p>Translator from Germany, Spanish, French, Roumanian and others to English</p><br/>
-                <span><RoomIcon/> FRANKFURT AM MAIN, DE</span><br/>
+                <h2>{name}</h2><br/>
+                <p>{profession}</p><br/>
+                <span><RoomIcon/> {city}, {countryCode}</span><br/>
                 <div className="developerCard__infosChips">
-                    <Chip label="Basic" />
-                    <Chip label="Basic" />
-                    <Chip label="Basic" />
-                    <Chip label="Basic" />
-                    <Chip label="Basic" />
-                    <Chip label="Basic" />
+                    { skills && skills.length > 0 ?
+                        skills.map((skill, index) => {
+                            return <Chip label={skill} key={index} />
+                        })
+                        :
+                        <Chip label="No Skills" />
+                    }
                 </div>
             </div>
             <div className="developerCard__buttons">
