@@ -11,6 +11,7 @@ import Jobs from "./pages/Jobs";
 import JobDescription from "./pages/JobDescription";
 import Registration from "./pages/Registration";
 import UserEdit from "./pages/UserEdit";
+import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
 
 const App = () => {
     return (
@@ -34,6 +35,10 @@ const App = () => {
                 <Route path="/developers">
                     <Header/>
                     <Developers/>
+                </Route>
+                <Route path="/freelancer/profile">
+                    <Header/>
+                    <DeveloperProfileEdit/>
                 </Route>
                 <Route path="/jobs/description">
                     <Header/>

@@ -14,13 +14,13 @@ const reducer = (state = INITIAL_STATE, action) => {
                 user: action.payload,
                 isLoggedIn: true,
                 expirationDate: moment().add(1, 'day').toISOString()
-            }
+            };
         case REMOVE_USER:
             return {
                 user: null,
                 isLoggedIn: false,
                 expirationDate: null
-            }
+            };
 
         default: return state;
     }

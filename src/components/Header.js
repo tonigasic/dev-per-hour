@@ -10,6 +10,7 @@ import {selectUser} from "../redux/User/reducer";
 function Header() {
     const user = useSelector(selectUser);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const [isFreelancer, setIsFreelancer] = useState(null);
     const [displayName, setDisplayName] = useState(null);
     const [showUserExtraMenu, setShowUserExtraMenu] = useState(false);
     const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function Header() {
         if (user && user.isLoggedIn) {
             setUserLoggedIn(true);
             setDisplayName(user.user.first_name + ' ' + user.user.last_name);
+
+            if (user.user && user.user.roles && user.user.roles.length > 0) {
+                user.user.roles[0] === 1 ? setIsFreelancer(true) : setIsFreelancer(false);
+            }
         }
     }, [user]);
 
@@ -85,7 +90,9 @@ function Header() {
                             </IconButton>
                         </div>
                         <div className="header__submenu">
-                            <div>My Profile</div>
+                            <Link to={isFreelancer ? '/freelancer/profile' : '/company/profile'}>
+                                <div>My Profile</div>
+                            </Link>
                             <Link to={"/user/profile"}>
                                 <div>Account</div>
                             </Link>
