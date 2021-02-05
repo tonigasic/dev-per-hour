@@ -24,8 +24,8 @@ function Profile() {
                         <div className="profile__imageContainer">
                             <ModalImage
                                 className="profile__image"
-                                small={'https://i.stack.imgur.com/l60Hf.png'}
-                                large={'https://i.stack.imgur.com/l60Hf.png'}
+                                small={Image}
+                                large={Image}
                                 alt=""
                             />
                         </div>
