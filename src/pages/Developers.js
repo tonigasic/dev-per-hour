@@ -55,6 +55,7 @@ function Developers() {
                                 countryCode={freelancer.address.countryCode}
                                 skills={freelancer.skills}
                                 picture={freelancer.picture}
+                                price={freelancer.price}
                             />
                         })
                         :

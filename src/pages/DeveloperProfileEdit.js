@@ -10,7 +10,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {Avatar, Button, IconButton, InputAdornment} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
-import {getRequest, putRequest} from "../Request";
+import {getRequest, postRequest, putRequest} from "../Request";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import Chip from "@material-ui/core/Chip";
@@ -27,6 +27,7 @@ function DeveloperProfileEdit () {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState({});
     const [aboutMe, setAboutMe] = useState('');
+    const [price, setPrice] = useState(0);
     const [skills, setSkills] = useState([]);
     const [tempSkills, setTempSkills] = useState('');
     const [tempHobbys, setTempHobbys] = useState('');
@@ -48,6 +49,21 @@ function DeveloperProfileEdit () {
         },
     };
 
+    const toolbarConfig = {
+        // Optionally specify the groups to display (displayed in the order listed).
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'HISTORY_BUTTONS'],
+        INLINE_STYLE_BUTTONS: [
+            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
+            {label: 'Italic', style: 'ITALIC'},
+            {label: 'Underline', style: 'UNDERLINE'},
+            {label: 'Strikethrough', style: 'STRIKETHROUGH'}
+        ],
+        BLOCK_TYPE_BUTTONS: [
+            {label: 'UL', style: 'unordered-list-item'},
+            {label: 'OL', style: 'ordered-list-item'}
+        ]
+    };
+
     useEffect(()=> {
         if (user && user.isLoggedIn && user.user && user.user._id) {
             new Promise((resolve, reject) => {
@@ -67,6 +83,7 @@ function DeveloperProfileEdit () {
                         setSkills(data.skills);
                         setHobbys(data.hobbys);
                         setPicture(data.picture);
+                        setPrice(data.price);
                         setAboutMe(getRichTextValueParsed(data.about));
                         setFreelancerExists(true);
                     }
@@ -86,21 +103,6 @@ function DeveloperProfileEdit () {
 
     const Alert = (props) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
-    };
-
-    const toolbarConfig = {
-        // Optionally specify the groups to display (displayed in the order listed).
-        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'HISTORY_BUTTONS'],
-        INLINE_STYLE_BUTTONS: [
-            {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
-            {label: 'Italic', style: 'ITALIC'},
-            {label: 'Underline', style: 'UNDERLINE'},
-            {label: 'Strikethrough', style: 'STRIKETHROUGH'}
-        ],
-        BLOCK_TYPE_BUTTONS: [
-            {label: 'UL', style: 'unordered-list-item'},
-            {label: 'OL', style: 'ordered-list-item'}
-        ]
     };
 
     const getRichTextValueParsed = (value) => {
@@ -181,12 +183,52 @@ function DeveloperProfileEdit () {
                 about: aboutMe.toString('html'),
                 skills: skills,
                 hobbys: hobbys,
-                picture: pictureLocation ? pictureLocation : picture
+                picture: pictureLocation ? pictureLocation : picture,
+                price: price
             };
 
             new Promise((resolve, reject) => {
                 let path = '/freelancer/' + id;
                 putRequest(path, body, resolve, reject);
+            })
+                .then((response) => {
+                    if (response.status === 200 && response.data) {
+                        setIsLoading(false);
+                        setOpenSuccessSnackbar(true);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setIsLoading(false);
+                    setErrorMessage(err);
+                    setOpenSnackbar(true);
+                })
+        }
+    }
+
+    const createFreelancer = () => {
+        if (validateRequest()) {
+            let body = {
+                userId: user.user._id,
+                email: user.user.email,
+                name: name,
+                profession: profession,
+                phone: phone,
+                address: {
+                    city: city,
+                    countryCode: country.code
+                },
+                about: aboutMe.toString('html'),
+                skills: skills,
+                hobbys: hobbys,
+                picture: pictureLocation ? pictureLocation : picture,
+                rating: (Math.random() * (5.0 - 1.0) + 1.0).toFixed(1),
+                price:price
+            };
+
+            new Promise((resolve, reject) => {
+                let path = '/freelancer';
+                postRequest(path, body, resolve, reject);
             })
                 .then((response) => {
                     if (response.status === 200 && response.data) {
@@ -240,11 +282,37 @@ function DeveloperProfileEdit () {
         setTempHobbys('');
     }
 
-    const createFreelancer = () => {
-
-    }
-
     const validateRequest = () => {
+        if (name.trim() === '') {
+            setErrorMessage('Please enter your name');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
+        if (profession.trim() === '') {
+            setErrorMessage('Please enter your profession');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
+        if (city.trim() === '') {
+            setErrorMessage('Please enter the city');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
+        if (!price || isNaN(price)) {
+            setErrorMessage('Please enter the valid number');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
+        if (!country) {
+            setErrorMessage('Please select one country');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
         return true;
     }
 
@@ -289,6 +357,9 @@ function DeveloperProfileEdit () {
                             </div>
                             <div className="developerProfileEdit__inputsRole">
                                 <TextField label="Name" variant="outlined" size="small" value={name} onChange={e => setName(e.target.value)}/>
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <TextField label="Price" type="number" variant="outlined" size="small" value={price} onChange={e => setPrice(e.target.value)}/>
                             </div>
                             <div className="developerProfileEdit__inputsRole">
                                 <TextField label="Profession" variant="outlined" size="small" value={profession} onChange={e => setProfession(e.target.value)} />

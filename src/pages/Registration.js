@@ -189,13 +189,13 @@ function Registration() {
                     <div className="registration__radioButtons">
                         <RadioGroup row aria-label="position" name="position" defaultValue="top" value={role} onChange={e => setRole(e.target.value)}>
                             <FormControlLabel
-                                value="1"
+                                value="2"
                                 control={<Radio color="primary" />}
                                 label="Hire For A Project"
                                 labelPlacement="start"
                             />
                             <FormControlLabel
-                                value="2"
+                                value="1"
                                 control={<Radio color="primary" />}
                                 label="Work As A Freelancer"
                             />

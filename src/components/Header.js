@@ -22,7 +22,7 @@ function Header() {
             setDisplayName(user.user.first_name + ' ' + user.user.last_name);
 
             if (user.user && user.user.roles && user.user.roles.length > 0) {
-                user.user.roles[0] === 1 ? setIsFreelancer(true) : setIsFreelancer(false);
+                user.user.roles[0] == 1 ? setIsFreelancer(true) : setIsFreelancer(false);
             }
         }
     }, [user]);

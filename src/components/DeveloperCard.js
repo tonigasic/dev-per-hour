@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
 
-function DeveloperCard({id, name, profession, city, countryCode, picture, skills}) {
+function DeveloperCard({id, name, profession, city, countryCode, picture, skills, price}) {
     const user = useSelector(selectUser);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
 
@@ -44,7 +44,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
             </div>
             <div className="developerCard__buttons">
                 <div>
-                    <strong>€15 <small>/hr</small></strong>
+                    <strong>€{price || 0} <small>/hr</small></strong>
                 </div>
                 <div>
                     { userLoggedIn ?
