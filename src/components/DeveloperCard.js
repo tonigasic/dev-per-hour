@@ -15,7 +15,6 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
         if (user && user.isLoggedIn) {
             setUserLoggedIn(true);
         }
-        console.log(atob(picture))
     }, [user]);
 
     return (
@@ -24,7 +23,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                 <IconButton>
                     <Link to={'/developers/profile'}>
                         <Avatar
-                            src={picture ? atob(picture) : ''}
+                            src={picture || ''}
                         />
                     </Link>
                 </IconButton>

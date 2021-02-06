@@ -1,19 +1,22 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../assets/css/DeveloperProfileEdit.css'
 import Radium, {StyleRoot} from "radium";
 import {fadeIn} from "react-animations";
 import TextField from "@material-ui/core/TextField";
 import {Autocomplete} from "@material-ui/lab";
-import {countries} from './../Countries';
+import {countries} from '../Countries';
 import RichTextEditor from "react-rte";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import {Button, IconButton, InputAdornment} from "@material-ui/core";
+import {Avatar, Button, IconButton, InputAdornment} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
 import {getRequest, putRequest} from "../Request";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import Chip from "@material-ui/core/Chip";
+import ReactS3 from 'react-s3';
+import {awsConfig} from '../aswConfig';
+import LoadingOverlay from 'react-loading-overlay';
 
 function DeveloperProfileEdit () {
     const [freelancerExists, setFreelancerExists] = useState(false);
@@ -25,11 +28,18 @@ function DeveloperProfileEdit () {
     const [country, setCountry] = useState({});
     const [aboutMe, setAboutMe] = useState('');
     const [skills, setSkills] = useState([]);
+    const [tempSkills, setTempSkills] = useState('');
+    const [tempHobbys, setTempHobbys] = useState('');
     const [hobbys, setHobbys] = useState([]);
-    const [picture, setPicture] = useState([]);
+    const [picture, setPicture] = useState('');
+    const [pictureObject, setPictureObject] = useState(null);
+    const [pictureChanged, setPictureChanged] = useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
     const user = useSelector(selectUser);
+    var pictureLocation = null;
 
     const styles = {
         fadeIn: {
@@ -71,6 +81,7 @@ function DeveloperProfileEdit () {
 
     const handleCloseSnackbar = (event, reason) => {
         setOpenSnackbar(false);
+        setOpenSuccessSnackbar(false);
     };
 
     const Alert = (props) => {
@@ -96,12 +107,64 @@ function DeveloperProfileEdit () {
         return value ? RichTextEditor.createValueFromString(value, 'html') : RichTextEditor.createEmptyValue()
     };
 
-    const saveFreelancer = () => {
-        if (freelancerExists) {
-            updateFreelancer()
+    async function saveFreelancer() {
+        setIsLoading(true);
+        if (pictureChanged) {
+            let pictureData = await uploadPicture();
+            setPictureChanged(false);
+            if (pictureData.success) {
+                if (freelancerExists) {
+                    updateFreelancer()
+                }
+                else {
+                    createFreelancer();
+                }
+            }
+            else {
+                setErrorMessage(pictureData.error);
+                setOpenSnackbar(true);
+                if (freelancerExists) {
+                    updateFreelancer()
+                }
+                else {
+                    createFreelancer();
+                }
+            }
         }
         else {
-            createFreelancer();
+            if (freelancerExists) {
+                updateFreelancer()
+            }
+            else {
+                createFreelancer();
+            }
+        }
+    }
+
+    function uploadPicture () {
+        return new Promise(resolve => {
+            ReactS3.uploadFile(pictureObject, awsConfig)
+                .then( data => {
+                    if (data && data.location) {
+                        pictureLocation = data.location;
+                        setPicture(data.location);
+                        resolve({location: data.location, success: true});
+                    }
+                    else {
+                        resolve({error: 'Picture could not be saved', success: false});
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    resolve({error: 'Picture could not be saved', success: false});
+                })
+        })
+    };
+
+    const handleChangePicture = (e) => {
+        if (e.target && e.target.files && e.target.files[0]) {
+            setPictureChanged(true);
+            setPictureObject(e.target.files[0]);
         }
     }
 
@@ -117,7 +180,8 @@ function DeveloperProfileEdit () {
                 },
                 about: aboutMe.toString('html'),
                 skills: skills,
-                hobbys: hobbys
+                hobbys: hobbys,
+                picture: pictureLocation ? pictureLocation : picture
             };
 
             new Promise((resolve, reject) => {
@@ -125,17 +189,55 @@ function DeveloperProfileEdit () {
                 putRequest(path, body, resolve, reject);
             })
                 .then((response) => {
-                    console.log(response);
                     if (response.status === 200 && response.data) {
-                        console.log('YEAAAHHH')
+                        setIsLoading(false);
+                        setOpenSuccessSnackbar(true);
                     }
                 })
                 .catch((err) => {
                     console.log(err);
+                    setIsLoading(false);
                     setErrorMessage(err);
                     setOpenSnackbar(true);
                 })
         }
+    }
+
+    const deleteSkill = (index) => {
+        let skillsClone = [...skills];
+        skillsClone.splice(index, 1);
+        console.log(skillsClone)
+        setSkills(skillsClone);
+    }
+
+    const handleChangeSkill = (e) => {
+        let value = e.target.value;
+        setTempSkills(value);
+    }
+
+    const addSkill = () => {
+        let skillsClone = [...skills];
+        skillsClone.push(tempSkills);
+        setSkills(skillsClone);
+        setTempSkills('');
+    }
+
+    const handleKeyPress = (e, target) => {
+        if (e.keyCode == 13) {
+            target === 'skills' ? addSkill() : addHobby();
+        }
+    }
+
+    const handleChangeHobby = (e) => {
+        let value = e.target.value;
+        setTempHobbys(value);
+    }
+
+    const addHobby = () => {
+        let hobbysClone = [...hobbys];
+        hobbysClone.push(tempHobbys);
+        setHobbys(hobbysClone);
+        setTempHobbys('');
     }
 
     const createFreelancer = () => {
@@ -148,122 +250,152 @@ function DeveloperProfileEdit () {
 
     return (
         <div className="developerProfileEdit">
-            <StyleRoot style={styles.fadeIn} className="developerProfileEdit__div">
-                <div className="developerProfileEdit__body">
-                    <div>
-                        <h1>Freelancer Profile</h1>
-                    </div>
-                    <div className="developerProfileEdit__inputs">
-                        <div className="developerProfileEdit__inputsRole">
-                            <TextField label="Name" variant="outlined" size="small" value={name} onChange={e => setName(e.target.value)}/>
-                        </div>
-                        <div className="developerProfileEdit__inputsRole">
-                            <TextField label="Profession" variant="outlined" size="small" value={profession} onChange={e => setProfession(e.target.value)} />
-                        </div>
-                        <div className="developerProfileEdit__inputsRole">
-                            <TextField label="Phone" variant="outlined" size="small" value={phone} onChange={e => setPhone(e.target.value)} />
-                        </div>
-                        <div className="developerProfileEdit__inputsRole">
-                            <TextField label="City" variant="outlined" size="small" value={city} onChange={e => setCity(e.target.value)} />
-                        </div>
-                        <div className="developerProfileEdit__inputsCountry">
-                            <Autocomplete
-                                className="developerProfileEdit__countryAutocomplete"
-                                options={countries}
-                                value={country}
-                                getOptionLabel={(option) => option.label}
-                                onChange={(e, newValue) => setCountry(newValue)}
-                                renderInput={(params) =>
-                                    <TextField
-                                        {...params}
-                                        label="Country"
-                                        variant="outlined"
-                                        size="small"
-                                        inputProps={{
-                                            ...params.inputProps,
-                                            autoComplete: 'new-password',
-                                        }}
-                                    />
-                                }
-                            />
-                        </div>
-                        <div className="developerProfileEdit__fileInput">
-                            <TextField label="Upload a new picture" InputLabelProps={{shrink: true}} variant="outlined" size="small" type="file" />
-                        </div>
-                        <div className="developerProfileEdit__inputsChips">
-                            <TextField
-                                className="developerProfileEdit__chipsInput"
-                                label="Skills"
-                                variant="outlined"
-                                size="small"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton><AddCircleOutlineIcon className="developerProfileEdit__inputIcon" /></IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            { skills && skills.length > 0 ?
-                                <div className="developerProfileEdit__chipsArray">
-                                    {
-                                        skills.map((skill, index) => {
-                                            return <Chip color="primary" label={skill} key={index} onDelete={() => console.log('asaaaa')} />
-                                        })
-                                    }
-                                </div>
-                                :
-                                ''
-                            }
-                        </div>
-                        <div className="developerProfileEdit__inputsChips">
-                            <TextField
-                                className={"developerProfileEdit__chipsInput"}
-                                label="Hobby's"
-                                variant="outlined"
-                                size="small"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton><AddCircleOutlineIcon className="developerProfileEdit__inputIcon" /></IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            { hobbys && hobbys.length > 0?
-                                <div className="developerProfileEdit__chipsArray">
-                                    {
-                                        hobbys.map((hobby, index) => {
-                                            return <Chip color="secondary" label={hobby} key={index} onDelete={() => console.log('asaaaa')} />
-                                        })
-                                    }
-                                </div>
-                                :
-                                ''
-                            }
-                        </div>
-                        <div className="developerProfileEdit__textEditor">
-                            <h3>About Me:</h3><br/>
-                            <RichTextEditor
-                                editorClassName="textEditor"
-                                value={aboutMe || getRichTextValueParsed('')}
-                                onChange={setAboutMe}
-                                toolbarConfig={toolbarConfig}
-                            />
-                        </div>
-                        <div className="developerProfileEdit__inputsRole">
-                            <br/>
-                            <br/>
-                            <Button className="developerProfileEdit__saveButton" variant="contained" onClick={saveFreelancer}>Save</Button>
-                        </div>
-                    </div>
-                </div>
-            </StyleRoot>
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                 <Alert onClose={handleCloseSnackbar} severity="error">
                     {errorMessage}
                 </Alert>
             </Snackbar>
+            <Snackbar open={openSuccessSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                <Alert onClose={handleCloseSnackbar} severity="success">
+                    Successfully saved data
+                </Alert>
+            </Snackbar>
+            <LoadingOverlay
+                active={isLoading}
+                spinner
+                text='Loading your content...'
+            >
+                <StyleRoot style={styles.fadeIn} className="developerProfileEdit__div">
+                    <div className="developerProfileEdit__body">
+                        <div>
+                            <h1>Freelancer Profile</h1>
+                        </div>
+                        <div className="developerProfileEdit__inputs">
+                            <div className="developerProfileEdit__avatar">
+                                <Avatar
+                                    src={picture ? picture : ''}
+                                />
+                            </div>
+                            <div className="developerProfileEdit__fileInput">
+                                <TextField
+                                    label="Upload a new picture"
+                                    InputLabelProps={{shrink: true}}
+                                    variant="outlined"
+                                    size="small"
+                                    type="file"
+                                    onChange={handleChangePicture}
+                                    accept="image/*"
+                                />
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <TextField label="Name" variant="outlined" size="small" value={name} onChange={e => setName(e.target.value)}/>
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <TextField label="Profession" variant="outlined" size="small" value={profession} onChange={e => setProfession(e.target.value)} />
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <TextField label="Phone" variant="outlined" size="small" value={phone} onChange={e => setPhone(e.target.value)} />
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <TextField label="City" variant="outlined" size="small" value={city} onChange={e => setCity(e.target.value)} />
+                            </div>
+                            <div className="developerProfileEdit__inputsCountry">
+                                <Autocomplete
+                                    className="developerProfileEdit__countryAutocomplete"
+                                    options={countries}
+                                    value={country}
+                                    getOptionLabel={(option) => option.label}
+                                    onChange={(e, newValue) => setCountry(newValue)}
+                                    renderInput={(params) =>
+                                        <TextField
+                                            {...params}
+                                            label="Country"
+                                            variant="outlined"
+                                            size="small"
+                                            inputProps={{
+                                                ...params.inputProps,
+                                                autoComplete: 'new-password',
+                                            }}
+                                        />
+                                    }
+                                />
+                            </div>
+                            <div className="developerProfileEdit__inputsChips">
+                                <TextField
+                                    className="developerProfileEdit__chipsInput"
+                                    label="Skills"
+                                    variant="outlined"
+                                    size="small"
+                                    value={tempSkills}
+                                    onChange={handleChangeSkill}
+                                    onKeyDown={e => handleKeyPress(e, 'skills')}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={addSkill}><AddCircleOutlineIcon className="developerProfileEdit__inputIcon" /></IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                { skills && skills.length > 0 ?
+                                    <div className="developerProfileEdit__chipsArray">
+                                        {
+                                            skills.map((skill, index) => {
+                                                return <Chip color="primary" label={skill} key={index} onDelete={() => deleteSkill(index)} />
+                                            })
+                                        }
+                                    </div>
+                                    :
+                                    ''
+                                }
+                            </div>
+                            <div className="developerProfileEdit__inputsChips">
+                                <TextField
+                                    className={"developerProfileEdit__chipsInput"}
+                                    label="Hobby's"
+                                    variant="outlined"
+                                    size="small"
+                                    value={tempHobbys}
+                                    onChange={handleChangeHobby}
+                                    onKeyDown={e => handleKeyPress(e, 'hobbys')}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={addHobby}><AddCircleOutlineIcon className="developerProfileEdit__inputIcon" /></IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                { hobbys && hobbys.length > 0?
+                                    <div className="developerProfileEdit__chipsArray">
+                                        {
+                                            hobbys.map((hobby, index) => {
+                                                return <Chip color="secondary" label={hobby} key={index} onDelete={() => console.log('asaaaa')} />
+                                            })
+                                        }
+                                    </div>
+                                    :
+                                    ''
+                                }
+                            </div>
+                            <div className="developerProfileEdit__textEditor">
+                                <h3>About Me:</h3><br/>
+                                <RichTextEditor
+                                    editorClassName="textEditor"
+                                    value={aboutMe || getRichTextValueParsed('')}
+                                    onChange={setAboutMe}
+                                    toolbarConfig={toolbarConfig}
+                                />
+                            </div>
+                            <div className="developerProfileEdit__inputsRole">
+                                <br/>
+                                <br/>
+                                <Button className="developerProfileEdit__saveButton" variant="contained" onClick={saveFreelancer}>Save</Button>
+                            </div>
+                        </div>
+                    </div>
+                </StyleRoot>
+            </LoadingOverlay>
         </div>
     )
 }

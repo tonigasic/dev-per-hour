@@ -97,3 +97,15 @@
 .developerProfileEdit__chipsArray > div {
     margin: 2px;
 }
+
+.developerProfileEdit__avatar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.developerProfileEdit__avatar > div {
+    width: 200px;
+    height: 200px;
+}
