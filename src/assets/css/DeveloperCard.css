@@ -1,8 +1,9 @@
 .developerCard {
     width: 100%;
     border-bottom: 1px solid lightgrey;
-    height: 200px;
+    height: fit-content;
     display: flex;
+    padding-bottom: 15px;
 }
 
 .developerCard:hover {
@@ -51,7 +52,6 @@
 .developerCard__buttons > div {
     display: flex;
     justify-content: flex-end;
-    height: 20%;
     padding: 10px;
 }
 

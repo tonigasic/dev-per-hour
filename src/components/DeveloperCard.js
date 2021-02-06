@@ -4,18 +4,73 @@ import {Avatar, Button, IconButton} from "@material-ui/core";
 import RoomIcon from '@material-ui/icons/Room';
 import Chip from '@material-ui/core/Chip';
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import {putRequest} from "../Request";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
-function DeveloperCard({id, name, profession, city, countryCode, picture, skills, price}) {
+function DeveloperCard({id, name, profession, city, countryCode, picture, skills, price, isFavorite}) {
     const user = useSelector(selectUser);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = React.useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user && user.isLoggedIn) {
             setUserLoggedIn(true);
         }
     }, [user]);
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+        setOpenSuccessSnackbar(false);
+    };
+
+    const Alert = (props) => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
+
+    const updateUser = () => {
+        let savedDevelopers = user.user.saved_developers ? [...user.user.saved_developers] : [];
+
+        if (isFavorite) {
+            let index = savedDevelopers.findIndex(dev => dev === id);
+
+            if (index !== -1) {
+                savedDevelopers.splice(index, 1);
+            }
+        }
+        else {
+            savedDevelopers.push(id);
+        }
+
+        let body = {
+            savedDevelopers: savedDevelopers
+        };
+
+        new Promise((resolve, reject) => {
+            let path = '/user/' + user.user._id + '/developer';
+            putRequest(path, body, resolve, reject);
+        })
+            .then((response) => {
+                if (response.status === 200 && response.data) {
+                    dispatch({
+                        type: 'SET_USER_SAVED_DEVELOPERS',
+                        payload: savedDevelopers
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setErrorMessage(err);
+                setOpenSnackbar(true);
+            })
+    }
 
     return (
         <div className="developerCard">
@@ -47,6 +102,15 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                     <strong>€{price || 0} <small>/hr</small></strong>
                 </div>
                 <div>
+                    <IconButton onClick={updateUser}>
+                        { isFavorite ?
+                            <FavoriteIcon style={{ color: 'red' }} />
+                            :
+                            <FavoriteBorderIcon style={{ color: 'red' }} />
+                        }
+                    </IconButton>
+                </div>
+                <div>
                     { userLoggedIn ?
                         <Link to={'/developers/contact'}>
                             <Button variant="contained">Contact</Button>
@@ -61,6 +125,16 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                     </Link>
                 </div>
             </div>
+            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                <Alert onClose={handleCloseSnackbar} severity="error">
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openSuccessSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                <Alert onClose={handleCloseSnackbar} severity="success">
+                    Successfully saved data
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

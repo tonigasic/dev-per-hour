@@ -12,6 +12,7 @@ import JobDescription from "./pages/JobDescription";
 import Registration from "./pages/Registration";
 import UserEdit from "./pages/UserEdit";
 import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
+import UserSavedDevelopers from "./pages/UserSavedDevelopers";
 
 const App = () => {
     return (
@@ -23,6 +24,10 @@ const App = () => {
                 </Route>
                 <Route path="/registration">
                     <Registration/>
+                </Route>
+                <Route path="/developers/saved">
+                    <Header/>
+                    <UserSavedDevelopers/>
                 </Route>
                 <Route path="/developers/contact">
                     <Header/>

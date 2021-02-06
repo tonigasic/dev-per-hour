@@ -1,4 +1,4 @@
-import { SET_USER, REMOVE_USER } from './types';
+import { SET_USER, REMOVE_USER, SET_USER_SAVED_DEVELOPERS } from './types';
 var moment = require('moment');
 
 const INITIAL_STATE = {
@@ -20,6 +20,14 @@ const reducer = (state = INITIAL_STATE, action) => {
                 user: null,
                 isLoggedIn: false,
                 expirationDate: null
+            };
+
+        case SET_USER_SAVED_DEVELOPERS:
+            let user = state.user;
+            let savedDevelopers = action.payload;
+            user.saved_developers = savedDevelopers;
+            return {
+                user: user
             };
 
         default: return state;

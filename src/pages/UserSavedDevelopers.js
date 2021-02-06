@@ -9,27 +9,29 @@ import NoData from "../components/NoData";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
 
-function Developers() {
+function UserSavedDevelopers() {
     const [freelancers, setFreelancers] = useState([]);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const user = useSelector(selectUser);
 
     useEffect(()=> {
-        new Promise((resolve, reject) => {
-            let path = '/freelancer';
-            getRequest(path, resolve, reject);
-        })
-            .then((response) => {
-                if (response.status === 200 && response.data && response.data.length > 0) {
-                    setFreelancers(response.data);
-                }
+        if (user && user.isLoggedIn && user.user) {
+            new Promise((resolve, reject) => {
+                let path = '/user/'+ user.user._id +'/developer';
+                getRequest(path, resolve, reject);
             })
-            .catch((err) => {
-                console.log(err);
-                setErrorMessage(err);
-                setOpenSnackbar(true);
-            })
+                .then((response) => {
+                    if (response.status === 200 && response.data && response.data.length > 0) {
+                        setFreelancers(response.data);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setErrorMessage(err);
+                    setOpenSnackbar(true);
+                })
+        }
     }, []);
 
     const handleCloseSnackbar = (event, reason) => {
@@ -39,18 +41,6 @@ function Developers() {
     const Alert = (props) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     };
-
-    const isFreelancerFavorite = (freelancerId) => {
-        if (user && user.isLoggedIn && user.user && user.user.saved_developers && Array.isArray(user.user.saved_developers)) {
-            let savedFreelancers = user.user.saved_developers;
-            if (savedFreelancers.includes(freelancerId)) {
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
-    }
 
     return (
         <div className="developers">
@@ -72,7 +62,7 @@ function Developers() {
                                 skills={freelancer.skills}
                                 picture={freelancer.picture}
                                 price={freelancer.price}
-                                isFavorite={isFreelancerFavorite(freelancer._id)}
+                                isFavorite={true}
                             />
                         })
                         :
@@ -89,4 +79,4 @@ function Developers() {
     );
 }
 
-export default Developers;
+export default UserSavedDevelopers;

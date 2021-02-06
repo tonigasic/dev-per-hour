@@ -67,7 +67,9 @@ function Header() {
                         <Link to={"/developers"}>
                             <div>Hire Developers</div>
                         </Link>
-                        <div>Saved Developers</div>
+                        <Link to={"/developers/saved"}>
+                            <div>Saved Developers</div>
+                        </Link>
                     </div>
                 </div>
                 <div className="header__menuOption">
