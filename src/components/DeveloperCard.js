@@ -12,7 +12,7 @@ import {putRequest} from "../Request";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-function DeveloperCard({id, name, profession, city, countryCode, picture, skills, price, isFavorite}) {
+function DeveloperCard({id, name, profession, city, countryCode, picture, skills, price, isFavorite, reloadDevelopers}) {
     const user = useSelector(selectUser);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -62,7 +62,10 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                     dispatch({
                         type: 'SET_USER_SAVED_DEVELOPERS',
                         payload: savedDevelopers
-                    })
+                    });
+                    if (reloadDevelopers) {
+                        reloadDevelopers();
+                    }
                 }
             })
             .catch((err) => {
@@ -70,7 +73,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                 setErrorMessage(err);
                 setOpenSnackbar(true);
             })
-    }
+    };
 
     return (
         <div className="developerCard">

@@ -13,9 +13,19 @@ function UserSavedDevelopers() {
     const [freelancers, setFreelancers] = useState([]);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [reloadDevelopers, setRealoadDevelopers] = React.useState(false);
     const user = useSelector(selectUser);
 
     useEffect(()=> {
+        loadDevelopers();
+    }, []);
+
+    const reloadSavedDevelopers = (id) => {
+        setFreelancers([]);
+        loadDevelopers();
+    };
+
+    const loadDevelopers = () => {
         if (user && user.isLoggedIn && user.user) {
             new Promise((resolve, reject) => {
                 let path = '/user/'+ user.user._id +'/developer';
@@ -32,7 +42,7 @@ function UserSavedDevelopers() {
                     setOpenSnackbar(true);
                 })
         }
-    }, []);
+    };
 
     const handleCloseSnackbar = (event, reason) => {
         setOpenSnackbar(false);
@@ -40,6 +50,18 @@ function UserSavedDevelopers() {
 
     const Alert = (props) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
+
+    const isFreelancerFavorite = (freelancerId) => {
+        if (user && user.isLoggedIn && user.user && user.user.saved_developers && Array.isArray(user.user.saved_developers)) {
+            let savedFreelancers = user.user.saved_developers;
+            if (savedFreelancers.includes(freelancerId)) {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
     };
 
     return (
@@ -50,7 +72,7 @@ function UserSavedDevelopers() {
                     <SearchIcon className="developers__searchIcon" />
                 </div>
                 <div className="developers__list">
-                    { freelancers ?
+                    { freelancers && Array.isArray(freelancers) && freelancers.length > 0 ?
                         freelancers.map((freelancer, index) => {
                             return <DeveloperCard
                                 key={freelancer._id}
@@ -62,7 +84,8 @@ function UserSavedDevelopers() {
                                 skills={freelancer.skills}
                                 picture={freelancer.picture}
                                 price={freelancer.price}
-                                isFavorite={true}
+                                isFavorite={isFreelancerFavorite(freelancer._id)}
+                                reloadDevelopers={() => reloadSavedDevelopers(freelancer._id)}
                             />
                         })
                         :

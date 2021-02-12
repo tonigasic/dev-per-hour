@@ -27,7 +27,9 @@ const reducer = (state = INITIAL_STATE, action) => {
             let savedDevelopers = action.payload;
             user.saved_developers = savedDevelopers;
             return {
-                user: user
+                user: user,
+                isLoggedIn: state.isLoggedIn,
+                expirationDate: state.expirationDate
             };
 
         default: return state;

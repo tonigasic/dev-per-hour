@@ -50,7 +50,7 @@ function Developers() {
         else {
             return false;
         }
-    }
+    };
 
     return (
         <div className="developers">
