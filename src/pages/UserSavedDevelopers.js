@@ -13,7 +13,6 @@ function UserSavedDevelopers() {
     const [freelancers, setFreelancers] = useState([]);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
-    const [reloadDevelopers, setRealoadDevelopers] = React.useState(false);
     const user = useSelector(selectUser);
 
     useEffect(()=> {
