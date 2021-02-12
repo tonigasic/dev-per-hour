@@ -21,7 +21,13 @@ function UserSavedDevelopers() {
     }, []);
 
     const reloadSavedDevelopers = (id) => {
-        setFreelancers([]);
+        let freelancersClone = [...freelancers];
+        let index = freelancersClone.findIndex(freelancer => freelancer._id === id);
+
+        if (index !== -1) {
+            freelancersClone.splice(index, 1);
+            setFreelancers(freelancersClone);
+        }
         loadDevelopers();
     };
 
