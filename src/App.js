@@ -13,6 +13,7 @@ import Registration from "./pages/Registration";
 import UserEdit from "./pages/UserEdit";
 import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
 import UserSavedDevelopers from "./pages/UserSavedDevelopers";
+import UserSavedJobs from "./pages/UserSavedJobs";
 
 const App = () => {
     return (
@@ -28,6 +29,10 @@ const App = () => {
                 <Route path="/developers/saved">
                     <Header/>
                     <UserSavedDevelopers/>
+                </Route>
+                <Route path="/jobs/saved">
+                    <Header/>
+                    <UserSavedJobs/>
                 </Route>
                 <Route path="/developers/contact">
                     <Header/>
@@ -45,7 +50,7 @@ const App = () => {
                     <Header/>
                     <DeveloperProfileEdit/>
                 </Route>
-                <Route path="/jobs/description">
+                <Route path="/jobs/description/:id">
                     <Header/>
                     <JobDescription/>
                 </Route>

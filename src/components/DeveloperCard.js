@@ -105,7 +105,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                     <strong>€{price || 0} <small>/hr</small></strong>
                 </div>
                 <div>
-                    <IconButton onClick={updateUser}>
+                    <IconButton onClick={updateUser} title="Favorite">
                         { isFavorite ?
                             <FavoriteIcon style={{ color: 'red' }} />
                             :

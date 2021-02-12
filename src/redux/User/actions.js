@@ -1,4 +1,4 @@
-import { SET_USER, REMOVE_USER, SET_USER_SAVED_DEVELOPERS } from './types';
+import { SET_USER, REMOVE_USER, SET_USER_SAVED_DEVELOPERS, SET_USER_SAVED_JOBS } from './types';
 
 
 export const setUser = (payload) => {
@@ -17,6 +17,13 @@ export const removeUser = (payload) => {
 export const setUserSavedDevelopers = (payload) => {
     return {
         type: SET_USER_SAVED_DEVELOPERS,
+        payload
+    };
+};
+
+export const setUserSavedJobs = (payload) => {
+    return {
+        type: SET_USER_SAVED_JOBS,
         payload
     };
 };

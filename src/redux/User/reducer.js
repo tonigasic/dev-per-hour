@@ -1,4 +1,4 @@
-import { SET_USER, REMOVE_USER, SET_USER_SAVED_DEVELOPERS } from './types';
+import { SET_USER, REMOVE_USER, SET_USER_SAVED_DEVELOPERS, SET_USER_SAVED_JOBS } from './types';
 var moment = require('moment');
 
 const INITIAL_STATE = {
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
+    var user = state.user;
     switch (action.type) {
         case SET_USER:
             return {
@@ -23,9 +24,17 @@ const reducer = (state = INITIAL_STATE, action) => {
             };
 
         case SET_USER_SAVED_DEVELOPERS:
-            let user = state.user;
             let savedDevelopers = action.payload;
             user.saved_developers = savedDevelopers;
+            return {
+                user: user,
+                isLoggedIn: state.isLoggedIn,
+                expirationDate: state.expirationDate
+            };
+
+        case SET_USER_SAVED_JOBS:
+            let savedJobs = action.payload;
+            user.saved_jobs = savedJobs;
             return {
                 user: user,
                 isLoggedIn: state.isLoggedIn,

@@ -6,15 +6,34 @@
     flex-direction: column;
     padding-bottom: 25px;
     padding-top: 25px;
-    cursor: pointer;
 }
 
 .jobCard:hover {
     background-color: #f3f3f3;
 }
 
+.jobCard__header {
+    display: flex;
+}
+
 .jobCard__title {
     padding-left: 25px;
+    width: 50%;
+}
+
+.jobCard__title > a {
+    color: #4774b7;
+}
+
+.jobCard__favorite {
+    padding-right: 25px;
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+}
+
+.jobCard__favorite > button {
+    z-index: 1000;
 }
 
 .jobCard__price {

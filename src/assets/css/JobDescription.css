@@ -6,7 +6,14 @@
 
 .jobDescription {
     display: flex;
-    min-height: 90%;
+    height: fit-content;
+    justify-content: center;
+}
+
+.jobDescription>div {
+    width: 100%;
+    display: flex;
+    height: fit-content;
     justify-content: center;
 }
 
@@ -61,16 +68,6 @@
 }
 
 .jobDescription__description {
-    border-bottom: 1px solid lightgrey;
-    width: 100%;
-    height: fit-content;
-}
-
-.jobDescription__type > p {
-    padding: 25px;
-}
-
-.jobDescription__type {
     border-bottom: 1px solid lightgrey;
     width: 100%;
     height: fit-content;

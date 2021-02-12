@@ -1,36 +1,53 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import '../assets/css/Jobs.css';
-import SearchIcon from "@material-ui/icons/Search";
-import JobCard from "../components/JobCard";
+import SearchIcon from '@material-ui/icons/Search';
+import {getRequest} from "../Request";
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
+import NoData from "../components/NoData";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/User/reducer";
-import {getRequest} from "../Request";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import NoData from "../components/NoData";
+import JobCard from "../components/JobCard";
 
-function Jobs() {
+function UserSavedJobs() {
     const [jobs, setJobs] = useState([]);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const user = useSelector(selectUser);
 
     useEffect(()=> {
-        new Promise((resolve, reject) => {
-            let path = '/job';
-            getRequest(path, resolve, reject);
-        })
-            .then((response) => {
-                if (response.status === 200 && response.data && response.data.length > 0) {
-                    setJobs(response.data);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                setErrorMessage(err);
-                setOpenSnackbar(true);
-            })
+        loadJobs();
     }, []);
+
+    const reloadSavedJobs = (id) => {
+        let jobsClone = [...jobs];
+        let index = jobsClone.findIndex(job => job._id === id);
+
+        if (index !== -1) {
+            jobsClone.splice(index, 1);
+            setJobs(jobsClone);
+        }
+        loadJobs();
+    };
+
+    const loadJobs = () => {
+        if (user && user.isLoggedIn && user.user) {
+            new Promise((resolve, reject) => {
+                let path = '/user/'+ user.user._id +'/job';
+                getRequest(path, resolve, reject);
+            })
+                .then((response) => {
+                    if (response.status === 200 && response.data && response.data.length > 0) {
+                        setJobs(response.data);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setErrorMessage(err);
+                    setOpenSnackbar(true);
+                })
+        }
+    };
 
     const handleCloseSnackbar = (event, reason) => {
         setOpenSnackbar(false);
@@ -60,7 +77,7 @@ function Jobs() {
                     <SearchIcon className="jobs__searchIcon" />
                 </div>
                 <div className="jobs__list">
-                    { jobs ?
+                    { jobs && Array.isArray(jobs) && jobs.length > 0 ?
                         jobs.map((job, index) => {
                             return <JobCard
                                 key={job._id}
@@ -76,6 +93,7 @@ function Jobs() {
                                 price_low={job.price_low}
                                 skills={job.skills}
                                 isFavorite={isJobFavorite(job._id)}
+                                reloadJobs={() => reloadSavedJobs(job._id)}
                             />
                         })
                         :
@@ -89,7 +107,7 @@ function Jobs() {
                 </Alert>
             </Snackbar>
         </div>
-    )
+    );
 }
 
-export default Jobs;
+export default UserSavedJobs;

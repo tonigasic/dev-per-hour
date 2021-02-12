@@ -55,11 +55,6 @@
     margin-bottom: 30px;
 }
 
-.jobs__list > a:last-child > div {
+.jobs__list > div:last-child {
     border-bottom: none!important;
-}
-
-.jobs__list > a {
-    text-decoration: none;
-    color: black;
 }

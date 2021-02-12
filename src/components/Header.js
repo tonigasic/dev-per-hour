@@ -80,7 +80,14 @@ function Header() {
                         <Link to={"/jobs"}>
                             <div>Find Job</div>
                         </Link>
-                        <div>Saved Jobs</div>
+                        <Link to={"/jobs/saved"}>
+                            <div>Saved Jobs</div>
+                        </Link>
+                        {!isFreelancer ?
+                            <div>My Jobs</div>
+                            :
+                            ''
+                        }
                         <div>Post A Job</div>
                     </div>
                 </div>
