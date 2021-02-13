@@ -123,7 +123,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                     }
                 </div>
                 <div>
-                    <Link to={'/developers/profile'}>
+                    <Link to={'/developers/profile/' + id}>
                         <Button color="primary">View Profile</Button>
                     </Link>
                 </div>

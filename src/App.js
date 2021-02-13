@@ -52,7 +52,7 @@ const App = () => {
                     <Header/>
                     <ContactDeveloper/>
                 </Route>
-                <Route path="/developers/profile">
+                <Route path="/developers/profile/:id">
                     <Header/>
                     <Profile/>
                 </Route>

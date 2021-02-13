@@ -50,6 +50,11 @@
     border: 3px solid grey;
 }
 
+.profile__image {
+    min-height: 100%;
+    min-width: 100%;
+}
+
 .profile__containerRight {
     display: flex;
     flex-direction: column;
