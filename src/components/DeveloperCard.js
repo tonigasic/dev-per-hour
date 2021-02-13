@@ -115,7 +115,7 @@ function DeveloperCard({id, name, profession, city, countryCode, picture, skills
                 </div>
                 <div>
                     { userLoggedIn ?
-                        <Link to={'/developers/contact'}>
+                        <Link to={'/developers/contact/' + id}>
                             <Button variant="contained">Contact</Button>
                         </Link>
                         :

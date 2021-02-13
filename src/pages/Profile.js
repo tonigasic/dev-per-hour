@@ -27,22 +27,23 @@ function Profile() {
     }, [user]);
 
     useEffect(()=> {
-        new Promise((resolve, reject) => {
-            let path = '/freelancer/' + id;
-            getRequest(path, resolve, reject);
-        })
-            .then((response) => {
-                if (response.status === 200 && response.data) {
-                    setDeveloper(response.data);
-                    setRender(true);
-                    console.log(response.data)
-                }
+        if (id && user.isLoggedIn) {
+            new Promise((resolve, reject) => {
+                let path = '/freelancer/' + id;
+                getRequest(path, resolve, reject);
             })
-            .catch((err) => {
-                console.log(err);
-                setErrorMessage(err);
-                setOpenSnackbar(true);
-            })
+                .then((response) => {
+                    if (response.status === 200 && response.data) {
+                        setDeveloper(response.data);
+                        setRender(true);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setErrorMessage(err);
+                    setOpenSnackbar(true);
+                })
+        }
     }, [id]);
 
     const handleCloseSnackbar = (event, reason) => {
@@ -95,7 +96,7 @@ function Profile() {
                                 </div>
                                 <div className="profile__contactButton">
                                     { userLoggedIn ?
-                                        <Link to={'/developers/contact'}>
+                                        <Link to={'/developers/contact/'+id}>
                                             <Button variant="contained">Contact</Button>
                                         </Link>
                                         :

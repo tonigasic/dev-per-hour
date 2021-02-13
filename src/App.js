@@ -48,7 +48,7 @@ const App = () => {
                     <Header/>
                     <UserJobEdit/>
                 </Route>
-                <Route path="/developers/contact">
+                <Route path="/developers/contact/:id">
                     <Header/>
                     <ContactDeveloper/>
                 </Route>
