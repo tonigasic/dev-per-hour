@@ -52,6 +52,7 @@ function UserJobEdit () {
     };
 
     useEffect(() => {
+        setRenderJob(false);
         setIsLoading(true);
         if (id && user.isLoggedIn) {
             setIsEdit(true);
@@ -77,9 +78,16 @@ function UserJobEdit () {
                 })
         }
         else {
+            setJob({});
+            setDurationType('day');
+            setTempSkills('');
+            setSkills([]);
+            setDescription(getRichTextValueParsed(''));
             setIsEdit(false);
-            setIsLoading(false);
-            setRenderJob(true);
+            setTimeout(()=>{
+                setIsLoading(false);
+                setRenderJob(true);
+            }, 500)
         }
     }, [id]);
 
@@ -169,35 +177,69 @@ function UserJobEdit () {
     }
 
     const saveJob = () => {
+        setIsLoading(true);
+        let jobClone = {...job};
+        console.log(jobClone)
+        jobClone.durationType = durationType;
+        jobClone.userId = user.user._id;
+        jobClone.skills = skills;
+        jobClone.description = description.toString('html');
+        jobClone.priceLow = jobClone.price_low || 0;
+        jobClone.priceHigh = jobClone.price_high || 0;
+        jobClone.hoursLow = jobClone.hours_low || 0;
+        jobClone.hoursHigh = jobClone.hours_high || 0;
 
+        if (validateRequest(jobClone)) {
+            new Promise((resolve, reject) => {
+                let path = '/job';
+                postRequest(path, jobClone, resolve, reject);
+            })
+                .then((response) => {
+                    if (response.status === 200 && response.data) {
+                        history.push('/jobs/user');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setIsLoading(false);
+                    setErrorMessage(err);
+                    setOpenSnackbar(true);
+                })
+        }
     }
 
     const validateRequest = (body) => {
-        if (body.title.trim() === '') {
+        if (!body) {
+            setErrorMessage('Please fill the form');
+            setOpenSnackbar(true);
+            setIsLoading(false);
+            return false;
+        }
+        if (!body.title || body.title.trim() === '') {
             setErrorMessage('Please enter the title');
             setOpenSnackbar(true);
             setIsLoading(false);
             return false;
         }
-        if (body.experience.trim() === '') {
+        if (!body.experience || body.experience.trim() === '') {
             setErrorMessage('Please enter the needed experience');
             setOpenSnackbar(true);
             setIsLoading(false);
             return false;
         }
-        if (body.price_low > body.price_high) {
+        if (parseInt(body.price_low) > parseInt(body.price_high)) {
             setErrorMessage('Min price can not be greater than max price');
             setOpenSnackbar(true);
             setIsLoading(false);
             return false;
         }
-        if (body.hours_low > body.hours_high) {
+        if (parseInt(body.hours_low) > parseInt(body.hours_high)) {
             setErrorMessage('Min hours per week can not be greater than max hours per week');
             setOpenSnackbar(true);
             setIsLoading(false);
             return false;
         }
-        if (!body.duration ||  body.duration === 0) {
+        if (!parseInt(body.duration) ||  parseInt(body.duration) === 0) {
             setErrorMessage('Duration of project can not be 0 or empty');
             setOpenSnackbar(true);
             setIsLoading(false);

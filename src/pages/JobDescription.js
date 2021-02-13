@@ -151,7 +151,7 @@ function JobDescription() {
                                             <WatchLaterIcon style={{ fontSize: 15 }}/>
                                         </div>
                                         <div>
-                                            <strong>{job.hours_low}-{job.hours_high} hrs/week</strong>
+                                            <strong>{job.hours_low === job.hours_high ? (job.hours_low + ' hrs/week') : (job.hours_low + '-' + job.hours_high + ' hrs/week')}</strong>
                                             <p>Hours Needed</p>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@ function JobDescription() {
                                             <TimerIcon style={{ fontSize: 15 }}/>
                                         </div>
                                         <div>
-                                            <strong>€{job.price_low}-€{job.price_high}</strong>
+                                            <strong>{job.price_low === job.price_high ? ('€' + job.price_low) : ('€' + job.price_low + '-€' + job.price_high)}</strong>
                                             <p>Hourly</p>
                                         </div>
                                     </div>
@@ -187,7 +187,8 @@ function JobDescription() {
                             <div className="jobDescription__description">
                                 <div>
                                     <h2>Job description</h2><br/>
-                                    {job.description}
+                                    <div dangerouslySetInnerHTML={{__html: job.description}}>
+                                    </div>
                                 </div>
                             </div>
                             <div className="jobDescription__skills">

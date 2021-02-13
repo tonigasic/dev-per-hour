@@ -90,7 +90,13 @@ function Header() {
                             :
                             ''
                         }
-                        <div>Post A Job</div>
+                        {!isFreelancer ?
+                            <Link to={"/job/edit"}>
+                                <div>Post A Job</div>
+                            </Link>
+                            :
+                            ''
+                        }
                     </div>
                 </div>
                 { userLoggedIn ?

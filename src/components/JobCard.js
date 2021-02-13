@@ -95,12 +95,12 @@ function JobCard({id, title, description, duration, duration_type, experience, h
             </div>
             <br/>
             <div className="jobCard__price">
-                <h4>Hourly: €{price_low}-€{price_high}</h4>
+                <h4>Hourly: {price_low === price_high ? ('€' + price_low) : ('€' + price_low + '-€' + price_high)}</h4>
             </div>
             <br/>
             <div className="jobCard__info">
                 <div>
-                    <strong>{hours_low}-{hours_high} hrs/week</strong>
+                    <strong>{hours_low === hours_high ? (hours_low + ' hrs/week') : (hours_low + '-' + hours_high + ' hrs/week')}</strong>
                     <p>Hours Needed</p>
                 </div>
                 <div>
@@ -121,7 +121,9 @@ function JobCard({id, title, description, duration, duration_type, experience, h
                     anchorClass=''
                     expanded={false}
                 >
-                    {description}
+                    <div dangerouslySetInnerHTML={{__html: description}}>
+
+                    </div>
                 </ShowMoreText>
             </div>
             <br/>
