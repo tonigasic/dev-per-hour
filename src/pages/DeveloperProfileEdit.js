@@ -248,7 +248,6 @@ function DeveloperProfileEdit () {
     const deleteSkill = (index) => {
         let skillsClone = [...skills];
         skillsClone.splice(index, 1);
-        console.log(skillsClone)
         setSkills(skillsClone);
     }
 

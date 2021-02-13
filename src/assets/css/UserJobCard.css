@@ -1,0 +1,54 @@
+.jobCard {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.jobCard:hover {
+    background-color: #f3f3f3;
+}
+
+.jobCard__header {
+    display: flex;
+}
+
+.jobCard__title {
+    padding-left: 25px;
+    width: 50%;
+    align-items: center;
+    display: flex;
+}
+
+.jobCard__deleteButtons {
+    display: flex;
+}
+
+.jobCard__deleteButtons > button {
+    background: rgb(120, 185, 255);
+    border: 1px solid rgb(77, 153, 252);
+    margin: 5px;
+    color: white;
+    border-radius: 2px;
+    width: 50%;
+    cursor: pointer;
+    height: 30px;
+}
+
+.jobCard__confirmModal {
+    position: absolute;
+    width: 400px;
+    border-radius: 10px;
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.jobCard__confirmModal > h2 {
+    text-align: center;
+}

@@ -14,6 +14,8 @@ import UserEdit from "./pages/UserEdit";
 import DeveloperProfileEdit from "./pages/DeveloperProfileEdit";
 import UserSavedDevelopers from "./pages/UserSavedDevelopers";
 import UserSavedJobs from "./pages/UserSavedJobs";
+import UsersJobs from "./pages/UsersJobs";
+import UserJobEdit from "./pages/UserJobEdit";
 
 const App = () => {
     return (
@@ -33,6 +35,18 @@ const App = () => {
                 <Route path="/jobs/saved">
                     <Header/>
                     <UserSavedJobs/>
+                </Route>
+                <Route path="/jobs/user">
+                    <Header/>
+                    <UsersJobs/>
+                </Route>
+                <Route path="/job/edit/:id">
+                    <Header/>
+                    <UserJobEdit/>
+                </Route>
+                <Route path="/job/edit">
+                    <Header/>
+                    <UserJobEdit/>
                 </Route>
                 <Route path="/developers/contact">
                     <Header/>

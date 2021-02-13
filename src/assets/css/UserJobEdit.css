@@ -1,0 +1,124 @@
+.userJobEdit__div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+.userJobEdit__body {
+    width: 40%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.userJobEdit__body > div {
+    text-align: center;
+}
+
+.userJobEdit__inputs {
+    margin-top: 25px;
+}
+
+.userJobEdit__wideInput {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.userJobEdit__wideInput > div {
+    width: 60%;
+}
+
+.userJobEdit__smallInputs {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userJobEdit__smallInputs > div {
+    width: 30%;
+    margin: 1px;
+}
+
+.userJobEdit__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.userJobEdit__button > div {
+    width: 60%;
+    margin: 5px;
+}
+
+.userJobEdit__saveButton {
+    background: rgb(120, 185, 255);
+    border: 1px solid rgb(77, 153, 252);
+    margin-top: 10px;
+    color: white;
+    border-radius: 2px;
+    width: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+.userJobEdit__durationType {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.userJobEdit__durationType > div {
+    height: 40px!important;
+}
+
+.userJobEdit__select {
+    text-align: left;
+}
+
+.userJobEdit__inputsChips {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.userJobEdit__chipsInput {
+    width: 60%;
+}
+
+.userJobEdit__inputIcon {
+    cursor: pointer;
+    color: grey;
+}
+
+.userJobEdit__chipsArray {
+    display: flex;
+    margin-top: 20px;
+    width: 60%;
+    flex-wrap: wrap;
+}
+
+.userJobEdit__chipsArray > div {
+    margin: 2px;
+}
+
+.userJobEdit__textEditor {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.userJobEdit__textEditor > div {
+    width: 80%;
+}
